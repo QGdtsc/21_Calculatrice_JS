@@ -34,7 +34,7 @@ function verifier() {
 
 function AC() {
     display_screen.innerText = ''
-    list_for_calculation = ''
+    list_for_calculation = []
 }
 
 
@@ -46,13 +46,30 @@ let substract = (a, b) => a - b
 let multiply = (a, b) => a * b
 let divide = (a, b) => a / b
 function calculate() {
-// function calculate(fonctionOperation, nombre1, nombre2) {
+    // function calculate(fonctionOperation, nombre1, nombre2) {
+
+
+    // si rien dans list for calculation
+    if (list_for_calculation[0] == '' && (list_for_calculation[1] != '+' && list_for_calculation[1] != '-' && list_for_calculation[1] != '*' && list_for_calculation[1] != '/')) {
+        result = ''
+        return result
+    }
+
+    // si aucun chiffre et on commence direct avec un operateur, genre pour faire le moins
+    if (list_for_calculation[0] == '') {
+        list_for_calculation[0] = 0
+    }
+
+
+
+    
     fonctionOperation = list_for_calculation[1]
     nombre1 = list_for_calculation[0]
     nombre1 = parseFloat(nombre1)
     nombre2 = display_screen.innerText
     nombre2 = parseFloat(nombre2)
     display_screen.innerText = ''
+
 
     if (fonctionOperation == '+') {
         fonctionOperation = add
@@ -87,7 +104,10 @@ function calculate() {
             break;
     }
     display_screen.innerText = result
+
     console.log(result)
     console.log(list_for_calculation)
+    list_for_calculation[0] = ''
+    list_for_calculation[1] = ''
     return result
 }
