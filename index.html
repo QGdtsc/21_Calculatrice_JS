@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <title>Calculatrice</title>
+</head>
+
+<body>
+    <div class="h-screen bg-gray-900 border-4 flex justify-center items-center">
+        <div class="container">
+            <div class="min-h-[30vh] bg-gray-600 border-4 rounded-md p-4 text-6xl text-white flex flex-row justify-end items-center" id="display_screen"></div>
+
+            <div class="grid grid-cols-4 gap-1 min-h-[70vh]">
+                <button class="btn aspect-square rounded-full bg-fuchsia-900 text-white m-1">AC</button>
+                <button class="btn aspect-square rounded-full bg-gray-500 text-white m-1">( )</button>
+                <button class="btn aspect-square rounded-full bg-gray-500 text-white m-1">^</button>
+                <button class="btn aspect-square rounded-full bg-gray-500 text-white m-1" onclick="push_operator('/')">/</button>
+                <button class="btn aspect-square rounded-full bg-gray-800 text-white m-1" onclick="display(7)">7</button>
+                <button class="btn aspect-square rounded-full bg-gray-800 text-white m-1" onclick="display(8)">8</button>
+                <button class="btn aspect-square rounded-full bg-gray-800 text-white m-1" onclick="display(9)">9</button>
+                <button class="btn aspect-square rounded-full bg-gray-500 text-white m-1" onclick="push_operator('*')">*</button>
+                <button class="btn aspect-square rounded-full bg-gray-800 text-white m-1" onclick="display(4)">4</button>
+                <button class="btn aspect-square rounded-full bg-gray-800 text-white m-1" onclick="display(5)">5</button>
+                <button class="btn aspect-square rounded-full bg-gray-800 text-white m-1" onclick="display(6)">6</button>
+                <button class="btn aspect-square rounded-full bg-gray-500 text-white m-1" onclick="push_operator('-')">-</button>
+                <button class="btn aspect-square rounded-full bg-gray-800 text-white m-1" onclick="display(1)">1</button>
+                <button class="btn aspect-square rounded-full bg-gray-800 text-white m-1" onclick="display(2)">2</button>
+                <button class="btn aspect-square rounded-full bg-gray-800 text-white m-1" onclick="display(3)">3</button>
+                <button class="btn aspect-square rounded-full bg-gray-500 text-white m-1" onclick="push_operator('+')">+</button>
+                <button class="btn aspect-square rounded-full bg-gray-800 text-white m-1" onclick="display(0)">0</button>
+                <button class="btn aspect-square rounded-full bg-gray-800 text-white m-1" onclick="verifier()">,</button>
+                <button class="btn aspect-square rounded-full bg-gray-800 text-white m-1" onclick="delete_number()">del</button>
+                <button class="btn aspect-square rounded-full bg-blue-500 text-white m-1" onclick="calculate()">=</button>
+            </div>
+
+
+        </div>
+
+
+    </div>
+    <div class="container mx-auto">
+        test
+
+
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
