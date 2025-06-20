@@ -32,7 +32,10 @@ function verifier() {
 }
 
 
-
+function AC() {
+    display_screen.innerText = ''
+    list_for_calculation = ''
+}
 
 
 
