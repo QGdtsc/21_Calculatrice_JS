@@ -104,7 +104,7 @@ function calculate() {
             // result =  divide(nombre1, nombre2)
             break;
         case power:
-            result = multiply(nombre1, nombre2)
+            result = power(nombre1, nombre2)
             break;
         default:
             result = "Nom d'opération invalide"
