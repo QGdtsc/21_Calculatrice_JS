@@ -1,120 +1,91 @@
-function boom() {
-    alert("BOOM")
-}
-
-let list_for_calculation = []
-let display_screen = document.getElementById("display_screen")
-
-function display(number) {
-    display_screen.innerText += number
-}
-
-
-function delete_number() {
-    display_screen.innerText = display_screen.innerText.slice(0, -1)
-}
-
-
-
-function push_operator(operator) {
-    temp1 = display_screen.innerText
-    operator = operator
-    list_for_calculation = [temp1, operator]
-    // console.log(list_for_calculation)
-    display_screen.innerText = ''
-    // return list_for_calculation
-}
-
-
-
-function verifier() {
-    console.log(list_for_calculation)
-}
-
+let displayTop = document.getElementById("display_screen_top")
+let displayBottom = document.getElementById("display_screen_bottom")
+let equal_pushed = false
 
 function AC() {
-    display_screen.innerText = ''
-    list_for_calculation = []
+    displayTop.innerText = ''
+    displayBottom.innerText = ''
 }
 
-
-
-
-console.log('\n\n')
-let add = (a, b) => a + b
-let substract = (a, b) => a - b
-let multiply = (a, b) => a * b
-let divide = (a, b) => a / b
-let power = (a, b) => a ** b
-function calculate() {
-    // function calculate(fonctionOperation, nombre1, nombre2) {
-
-
-    // si rien dans list for calculation
-    if (list_for_calculation[0] == '' && (list_for_calculation[1] != '+' && list_for_calculation[1] != '-' && list_for_calculation[1] != '*' && list_for_calculation[1] != '/')) {
-        result = ''
-        return result
+function addElement(element) {
+    // Verification du dernier element pour éviter doublon de .
+    let dernierCaractere = displayTop.innerText.slice(-1);
+    // console.log(`dernier caractere avant insertion ${dernierCaractere}`)
+    if (element == '.' && dernierCaractere == '.') {
+        return
     }
-
-    // si aucun chiffre et on commence direct avec un operateur, genre pour faire le moins
-    if (list_for_calculation[0] == '') {
-        list_for_calculation[0] = 0
+    // Verification du dernier element et ajout d'un zero devant le . si l'utilisateur entre un .
+    if (element == '.' && dernierCaractere == ('' || '+' || '-' || 'x' || '^')) {
+        element = '0.'
     }
-
-
-
-
-    fonctionOperation = list_for_calculation[1]
-    nombre1 = list_for_calculation[0]
-    nombre1 = parseFloat(nombre1)
-    nombre2 = display_screen.innerText
-    nombre2 = parseFloat(nombre2)
-    display_screen.innerText = ''
-
-
-    if (fonctionOperation == '+') {
-        fonctionOperation = add
+    if (element === 'del') {
+        displayTop.innerText = displayTop.innerText.slice(0, -1);
+        displayBottom.innerText = ''
+        return
     }
-    if (fonctionOperation == '-') {
-        fonctionOperation = substract
+    // Supprimer displayTop et redemarrer a zero si equal a été activé
+    if (equal_pushed == true) {
+        displayTop.innerText = ''
+        equal_pushed = false
     }
-    if (fonctionOperation == '*') {
-        fonctionOperation = multiply
+    // Pour faire clignoter l'ecran quand j'atteint la limite de 24 caracteres dans displayTop
+    if (displayTop.innerText.length >= 24) {
+        // console.log("Trop de caractères !");
+        const container = document.getElementById("display_screen_container");
+        container.classList.add("ring-4", "ring-red-500");
+        setTimeout(() => {
+            container.classList.remove("ring-4", "ring-red-500");
+        }, 300);
+        return;
     }
-    if (fonctionOperation == '/') {
-        fonctionOperation = divide
+    // if (displayTop.innerText.length >= 30) {
+    //     console.log("Trop de caractères !");
+    //     return;
+    // }
+    let numberOperators = (displayTop.innerText.match(/[+\-x/^]/g) || []).length;
+    displayTop.innerText += element
+    if (numberOperators >= 1) {
+        let expression = displayTop.innerText.replace(/x/g, '*').replace(/\^/g, '**').replace(/%/g, '/100');
+        try {
+            let result_in_addElement = eval(expression);
+            // result_in_addElement = Number(result_in_addElement).toPrecision(8)
+            result_in_addElement = parseFloat(result_in_addElement.toFixed(8))
+            displayBottom.innerText = result_in_addElement;
+            // En cas d'erreur
+            archiveLastWorkingElement = result_in_addElement;
+        } catch (e) {
+            console.log("Erreur en cours")
+            displayBottom.innerText = archiveLastWorkingElement;
+            // displayBottom.innerText = 'Erreur';
+        }
     }
-    if (fonctionOperation == '^') {
-        fonctionOperation = power
-    }
+}
 
-    switch (fonctionOperation) {
-        case add:
-            result = add(nombre1, nombre2)
-            break;
-        case substract:
-            result = substract(nombre1, nombre2)
-            break;
-        case multiply:
-            result = multiply(nombre1, nombre2)
-            break;
-        case divide:
-            (nombre2 != 0 ? result = divide(nombre1, nombre2) : result = "Division par zero impossible")
-            // if (nombre2 == 0) result = "Division par zero impossible"
-            // result =  divide(nombre1, nombre2)
-            break;
-        case power:
-            result = power(nombre1, nombre2)
-            break;
-        default:
-            result = "Nom d'opération invalide"
-            break;
+function addOperator(operator) {
+    // Verification du dernier element pour ne pas ajouter plusieurs opérateurs en même temps.
+    let dernierCaractere = displayTop.innerText.slice(-1);
+    // console.log(`dernier caractere avant insertion ${dernierCaractere}`)
+    if (operator != '-' && ['', '+', '-', 'x', '^'].includes(dernierCaractere)) {
+        // if (dernierCaractere == ('' || '+' || '-' || 'x' || '^')) {
+        return
     }
-    display_screen.innerText = result
+    if (operator == '-' && ['-'].includes(dernierCaractere)) {
+        // if (dernierCaractere == ('' || '+' || '-' || 'x' || '^')) {
+        return
+    }
+    // annuler le redemarrage a zero si on appuie sur un operateur apres avoir appuyé sur zero
+    if (equal_pushed == true) {
+        equal_pushed = false
+    }
+    displayTop.innerText += operator
+}
 
-    console.log(result)
-    console.log(list_for_calculation)
-    list_for_calculation[0] = ''
-    list_for_calculation[1] = ''
-    return result
+function equal() {
+    if (displayBottom.innerText !== '') {
+        displayTop.innerText = displayBottom.innerText;
+        displayBottom.innerText = '';
+        // Pour redemarrer un nouveau calcul si le prochain bouton pressé est un element
+        // Et continuer si le prochain bouton est un opérateur
+        equal_pushed = true
+    }
 }

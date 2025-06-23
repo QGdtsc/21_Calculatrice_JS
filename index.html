@@ -9,35 +9,64 @@
 </head>
 
 <body>
-    <div class="h-screen bg-gray-900 border-4 flex justify-center items-center">
+
+    <div class="h-screen bg-gray-900 flex flex-cols justify-center items-center">
         <div class="container">
-            <div class="min-h-[30vh] bg-gray-600 border-4 rounded-md p-4 text-6xl text-white flex flex-row justify-end items-center" id="display_screen"></div>
-
-            <div class="grid grid-cols-4 gap-1 min-h-[65vh]">
-                <button class="btn aspect-square rounded-full bg-fuchsia-900 text-white m-1" onclick="AC()">AC</button>
-                <button class="btn aspect-square rounded-full bg-gray-500 text-white m-1">( )</button>
-                <button class="btn aspect-square rounded-full bg-gray-500 text-white m-1" onclick="push_operator('^')">^</button>
-                <button class="btn aspect-square rounded-full bg-gray-500 text-white m-1" onclick="push_operator('/')">/</button>
-                <button class="btn aspect-square rounded-full bg-gray-800 text-white m-1" onclick="display(7)">7</button>
-                <button class="btn aspect-square rounded-full bg-gray-800 text-white m-1" onclick="display(8)">8</button>
-                <button class="btn aspect-square rounded-full bg-gray-800 text-white m-1" onclick="display(9)">9</button>
-                <button class="btn aspect-square rounded-full bg-gray-500 text-white m-1" onclick="push_operator('*')">*</button>
-                <button class="btn aspect-square rounded-full bg-gray-800 text-white m-1" onclick="display(4)">4</button>
-                <button class="btn aspect-square rounded-full bg-gray-800 text-white m-1" onclick="display(5)">5</button>
-                <button class="btn aspect-square rounded-full bg-gray-800 text-white m-1" onclick="display(6)">6</button>
-                <button class="btn aspect-square rounded-full bg-gray-500 text-white m-1" onclick="push_operator('-')">-</button>
-                <button class="btn aspect-square rounded-full bg-gray-800 text-white m-1" onclick="display(1)">1</button>
-                <button class="btn aspect-square rounded-full bg-gray-800 text-white m-1" onclick="display(2)">2</button>
-                <button class="btn aspect-square rounded-full bg-gray-800 text-white m-1" onclick="display(3)">3</button>
-                <button class="btn aspect-square rounded-full bg-gray-500 text-white m-1" onclick="push_operator('+')">+</button>
-                <button class="btn aspect-square rounded-full bg-gray-800 text-white m-1" onclick="display(0)">0</button>
-                <button class="btn aspect-square rounded-full bg-gray-800 text-white m-1" onclick="verifier()">,</button>
-                <button class="btn aspect-square rounded-full bg-gray-800 text-white m-1" onclick="delete_number()">del</button>
-                <button class="btn aspect-square rounded-full bg-blue-500 text-white m-1" onclick="calculate()">=</button>
+            <!-- Ecran d'affichange -->
+            <div class="min-h-[30vh] bg-gray-600 border-1 border-black rounded-lg p-4 text-5xl text-white flex flex-col justify-center items-end transition-all duration-300 rounded-lg" id="display_screen_container">
+                <div class="min-h-[10vh] w-full  break-words whitespace-pre-wrap text-right" id="display_screen_top"></div>
+                <!-- <div class="min-h-[10vh] w-full break-words whitespace-normal overflow-hidden text-right leading-tight px-2" id="display_screen_top">123456789012345678901234567890+1234567890×2^3</div> -->
+                <div class="min-h-[10vh]" id="display_screen_bottom"></div>
             </div>
-        </div>
+            <!-- Clavier -->
+            <div class="grid grid-cols-4 gap-1 min-h-[70vh] px-2 py-5">
+                <button class="btn aspect-square rounded-full bg-fuchsia-900 text-white text-3xl"
+                    onclick="AC()">AC</button>
+                <button class="btn aspect-square rounded-full bg-gray-500 text-white text-3xl"
+                    onclick="addOperator('%')">%</button>
+                <button class="btn aspect-square rounded-full bg-gray-500 text-white text-3xl"
+                    onclick="addOperator('^')">^</button>
+                <button class="btn aspect-square rounded-full bg-gray-500 text-white text-3xl"
+                    onclick="addOperator('/')">/</button>
+                <button class="btn aspect-square rounded-full bg-gray-800 text-white text-3xl"
+                    onclick="addElement(7)">7</button>
+                <button class="btn aspect-square rounded-full bg-gray-800 text-white text-3xl"
+                    onclick="addElement(8)">8</button>
+                <button class="btn aspect-square rounded-full bg-gray-800 text-white text-3xl"
+                    onclick="addElement(9)">9</button>
+                <button class="btn aspect-square rounded-full bg-gray-500 text-white text-3xl"
+                    onclick="addOperator('x')">x</button>
+                <button class="btn aspect-square rounded-full bg-gray-800 text-white text-3xl"
+                    onclick="addElement(4)">4</button>
+                <button class="btn aspect-square rounded-full bg-gray-800 text-white text-3xl"
+                    onclick="addElement(5)">5</button>
+                <button class="btn aspect-square rounded-full bg-gray-800 text-white text-3xl"
+                    onclick="addElement(6)">6</button>
+                <button class="btn aspect-square rounded-full bg-gray-500 text-white text-3xl"
+                    onclick="addOperator('-')">-</button>
+                <button class="btn aspect-square rounded-full bg-gray-800 text-white text-3xl"
+                    onclick="addElement(1)">1</button>
+                <button class="btn aspect-square rounded-full bg-gray-800 text-white text-3xl"
+                    onclick="addElement(2)">2</button>
+                <button class="btn aspect-square rounded-full bg-gray-800 text-white text-3xl"
+                    onclick="addElement(3)">3</button>
+                <button class="btn aspect-square rounded-full bg-gray-500 text-white text-3xl"
+                    onclick="addOperator('+')">+</button>
+                <button class="btn aspect-square rounded-full bg-gray-800 text-white text-3xl"
+                    onclick="addElement(0)">0</button>
+                <button class="btn aspect-square rounded-full bg-gray-800 text-white text-3xl"
+                    onclick="addElement('.')">,</button>
+                <button class="btn aspect-square rounded-full bg-gray-800 text-white text-3xl"
+                    onclick="addElement('del')">del</button>
+                <button class="btn aspect-square rounded-full bg-blue-500 text-white text-3xl"
+                    onclick="equal()">=</button>
 
+            </div>
+
+        </div>
     </div>
+
+
     <script src="script.js"></script>
 </body>
 
