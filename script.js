@@ -48,8 +48,8 @@ function addElement(element) {
         let expression = displayTop.innerText.replace(/x/g, '*').replace(/\^/g, '**').replace(/%/g, '/100');
         try {
             let result_in_addElement = eval(expression);
-            // result_in_addElement = Number(result_in_addElement).toPrecision(8)
-            result_in_addElement = parseFloat(result_in_addElement.toFixed(8))
+            result_in_addElement = Number(result_in_addElement).toPrecision(8)
+            // result_in_addElement = parseFloat(result_in_addElement.toFixed(8))
             displayBottom.innerText = result_in_addElement;
             // En cas d'erreur
             archiveLastWorkingElement = result_in_addElement;
