@@ -45,6 +45,7 @@ let add = (a, b) => a + b
 let substract = (a, b) => a - b
 let multiply = (a, b) => a * b
 let divide = (a, b) => a / b
+let power = (a, b) => a ** b
 function calculate() {
     // function calculate(fonctionOperation, nombre1, nombre2) {
 
@@ -62,7 +63,7 @@ function calculate() {
 
 
 
-    
+
     fonctionOperation = list_for_calculation[1]
     nombre1 = list_for_calculation[0]
     nombre1 = parseFloat(nombre1)
@@ -83,6 +84,9 @@ function calculate() {
     if (fonctionOperation == '/') {
         fonctionOperation = divide
     }
+    if (fonctionOperation == '^') {
+        fonctionOperation = power
+    }
 
     switch (fonctionOperation) {
         case add:
@@ -98,6 +102,9 @@ function calculate() {
             (nombre2 != 0 ? result = divide(nombre1, nombre2) : result = "Division par zero impossible")
             // if (nombre2 == 0) result = "Division par zero impossible"
             // result =  divide(nombre1, nombre2)
+            break;
+        case power:
+            result = multiply(nombre1, nombre2)
             break;
         default:
             result = "Nom d'opération invalide"
